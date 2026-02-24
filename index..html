@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Part Form</title>
+    <link rel="stylesheet" href="./assets/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+    <div class="form-container">
+
+
+        <div class="form-header">
+            <div class="header-logo">
+                <img src="https://www.waldoch.com/wp-content/uploads/2025/06/Boundary-Waters-1024x542.png"
+                    alt="Waldoch Boundary Waters Package Logo">
+            </div>
+            <div class="header-title">
+                <h1>Build your Boundary Waters</h1>
+                <p class="subtitle">More room for family and friends. More space to carry sports equipment, sofas and
+                    suitcases. More luxury, convenience, safety, versatility and just plain fun. Whether you choose a
+                    low-top or a high-top van, “more” is what a Waldoch Boundary Waters Van is all about.</p>
+            </div>
+        </div>
+
+        <div class="header-row">
+            <p class="subtitle">Build your <span class="sub-flux">Boundary Waters</span> and get a quote!</p>
+            <button class="build-btn">Looking for a different build? </button>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+            <!-- <div class="steps">
+                <div class="step active" data-step="1">1</div>
+                <div class="step" data-step="2">2</div>
+                <div class="step" data-step="3">3</div>
+                <div class="step" data-step="4">4</div>
+            </div> -->
+        </div>
+
+        <div class="achievements" id="achievements">
+            <button type="button" class="achievement-btn unlocked" id="ach1">
+                <span class="ach-icon">🔎 </span>
+                Included with Boundary Waters Package
+            </button>
+
+            <button type="button" class="achievement-btn" id="ach2" style="display: none;">
+                <span class="ach-icon">🔎 </span>
+                Included with Chassis (Window Sticker)
+            </button>
+
+            <button type="button" class="achievement-btn" id="ach3" style="display: none;">
+                <span class="ach-icon">🔎 </span>
+                Your Build Summary
+            </button>
+        </div>
+
+        <form id="gamifiedForm">
+            <!-- Step 1 - Vehicle Make Selection -->
+            <div class="form-step active">
+                <h3>Pick your model</h3>
+
+                <div class="vehicle-grid">
+                    <label class="vehicle-card">
+                        <input type="radio" name="vehicle_make" value="ford" data-make="ford" required>
+                        <div class="vehicle-image-wrapper">
+                            <img src="https://web.waldoch.com/2025/12/ford.jpg" alt="Ford">
+                        </div>
+                        <div class="vehicle-title">Ford</div>
+                    </label>
+
+                    <label class="vehicle-card">
+                        <input type="radio" name="vehicle_make" value="ram" data-make="ram" required>
+                        <div class="vehicle-image-wrapper">
+                            <img src="https://web.waldoch.com/2025/12/RAM.jpg" alt="Ram">
+                        </div>
+                        <div class="vehicle-title">Ram</div>
+                    </label>
+
+                </div>
+            </div>
+
+
+            <div class="form-step">
+                <h3>Do you have a vehicle?</h3>
+                <p class="step-subtitle">Let us know if you already own a van or need help selecting one</p>
+
+                <div class="vehicle-grid">
+                    <label class="vehicle-card">
+                        <input type="radio" name="has_vehicle" value="yes" required>
+                        <div class="vehicle-image-wrapper">
+                            <div class="icon-placeholder" style="font-size: 48px; padding: 40px;">✓</div>
+                        </div>
+                        <div class="vehicle-title">Yes, I have my own van</div>
+                    </label>
+
+                    <label class="vehicle-card">
+                        <input type="radio" name="has_vehicle" value="no" required>
+                        <div class="vehicle-image-wrapper">
+                            <div class="icon-placeholder" style="font-size: 48px; padding: 40px;">🚗</div>
+                        </div>
+                        <div class="vehicle-title">No, I need a new 2026 van</div>
+                    </label>
+                </div>
+            </div>
+            <!-- Step 2 - Chassis Selection -->
+            <div class="form-step" data-conditional="chassis">
+                <h3>Chassis Selection</h3>
+                <fieldset>
+                    <legend>Choose a Chassis</legend>
+                    <select id="chassis-dropdown">
+                        <option value="" disabled selected>Please select a vehicle first</option>
+                    </select>
+                </fieldset>
+            </div>
+
+            <!-- Step 3 - Exterior Paint Selection -->
+            <div class="form-step" data-conditional="paint">
+                <h3>Exterior Paint Color</h3>
+                <p class="step-subtitle">Choose your vehicle's exterior color</p>
+
+                <div class="paint-grid" id="paint-grid">
+                    <p class="placeholder-text">Please select a chassis to view available paint colors.</p>
+                </div>
+            </div>
+
+            <!-- Seating Configuration -->
+            <div class="form-step " id="seating-config-step">
+                <h3>Seating Configuration</h3>
+                <p class="step-description">Choose your passenger seating layout</p>
+                <div class="options-grid" data-category="seating_config"></div>
+            </div>
+
+            <!-- Seating Color Options -->
+            <div class="form-step" id="seating-color-step">
+                <h3>Seating Color Options</h3>
+                <p class="step-description">Select your interior seating color (included)</p>
+                <div class="options-grid" data-category="seating_color"></div>
+            </div>
+
+            <!-- Van Trim Options -->
+            <div class="form-step" id="van-trim-step">
+                <h3>Van Trim Options</h3>
+                <p class="step-description">Choose your wood or material trim (included)</p>
+                <div class="options-grid" data-category="van_trim"></div>
+            </div>
+
+            <!-- Combined Flooring Step -->
+            <div class="form-step" id="flooring-step">
+                <div>
+                    <h3>Flooring Options</h3>
+                    <p class="step-description">Select your carpet color (included) — choose one</p>
+                    <div class="options-grid" data-category="flooring"></div>
+                </div>
+
+                <div>
+                    <h3>Acoustic Floor Upgrade</h3>
+                    <p class="step-description">Upgrade to premium acoustic flooring with mats — select any</p>
+                    <div class="options-grid" data-category="acoustic_floor"></div>
+                </div>
+            </div>
+
+            <!-- Interior Options -->
+            <div class="form-step">
+                <h3>Interior Options</h3>
+                <p class="step-description">Add convenience and comfort features</p>
+                <div class="options-grid" data-category="interior"></div>
+            </div>
+
+
+
+            <!-- Exterior Options -->
+            <div class="form-step">
+                <h3>Exterior Options</h3>
+                <p class="step-description">Enhance accessibility and convenience</p>
+                <div class="options-grid" data-category="exterior"></div>
+            </div>
+
+            <!-- Wheels & Tires -->
+            <div class="form-step">
+                <h3>Wheels & Tires</h3>
+                <p class="step-description">Upgrade your wheels and tires</p>
+                <div class="options-grid" data-category="wheels_and_tires"></div>
+            </div>
+
+            <!-- Electronics -->
+            <div class="form-step">
+                <h3>Electronics & Entertainment</h3>
+                <p class="step-description">Add smart TV, satellite, connectivity, and power options</p>
+                <div class="options-grid" data-category="electronics"></div>
+            </div>
+
+            <!-- Mobility -->
+            <div class="form-step">
+                <h3>Mobility Options</h3>
+                <p class="step-description">Wheelchair lift and accessibility upgrades</p>
+                <div class="options-grid" data-category="mobility"></div>
+            </div>
+
+            <!-- Final Challenge - Contact Form -->
+            <div class="form-step">
+                <h3>Contact Information</h3>
+                <p class="step-subtitle">Please provide your details to complete the build</p>
+
+                <div class="contact-form-grid">
+                    <div class="form-group">
+                        <label for="first_name">First Name <span class="required">*</span></label>
+                        <input type="text" id="first_name" name="first_name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="last_name">Last Name <span class="required">*</span></label>
+                        <input type="text" id="last_name" name="last_name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="your_email">Email <span class="required">*</span></label>
+                        <input type="email" id="your_email" name="your_email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="address">Address <span class="required">*</span></label>
+                        <input type="text" id="address" name="address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city">City <span class="required">*</span></label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="zip">Zip / Postal Code <span class="required">*</span></label>
+                        <input type="text" id="zip" name="zip" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="country">Country <span class="required">*</span></label>
+                        <select id="country" name="country" required>
+                            <option value="">Select a country</option>
+                            <option value="United States">United States</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="state_province">State / Province <span class="required">*</span></label>
+                        <select id="state_province" name="state_province" required>
+                            <option value="">Select a country first</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>How do you want to be contacted? <span class="required">*</span></label>
+                        <div class="checkbox-group" data-required-group="contact_preference">
+                            <label><input type="checkbox" name="contact_preference" value="Phone"> Phone</label>
+                            <label><input type="checkbox" name="contact_preference" value="Email"> Email</label>
+                            <label><input type="checkbox" name="contact_preference" value="Just Looking"> Just
+                                Looking</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="purchase_timeline">When are you looking to purchase? <span
+                                class="required">*</span></label>
+                        <select id="purchase_timeline" name="purchase_timeline" required> <!-- ADD required -->
+                            <option value="">Select an option</option>
+                            <option value="30 Days">30 Days</option>
+                            <option value="1-3 Months">1-3 Months</option>
+                            <option value="3-6 Months">3-6 Months</option>
+                            <option value="6 Months or More">6+ Months</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="dealer">Do you have a preferred dealer?</label>
+                        <input type="text" id="dealer" name="dealer" placeholder="Dealer name or location (optional)">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="comments">Additional Comments</label>
+                        <textarea id="comments" name="comments" rows="4"
+                            placeholder="Any special requests or notes..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label class="checkbox-label opt-in-checkbox">
+                            <input type="checkbox" name="special_offers" value="yes" id="special_offers">
+                            <span class="custom-checkbox"></span>
+                            YES, I would like to receive special offers
+                        </label>
+
+                        <p class="privacy-note">
+                            If you selected Yes — Waldoch is committed to protecting and respecting your privacy.
+                            We’ll only use your personal information to administer your account and provide the
+                            products and services you requested. From time to time, we may contact you about our
+                            products and services. You can unsubscribe at any time.
+                            <a href="/privacy-policy" target="_blank">View our Privacy Policy</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn-prev" id="prevBtn">Previous</button>
+                <button type="button" class="btn-next" id="nextBtn">Next</button>
+                <button type="submit" class="btn-submit" id="submitBtn" style="display:none;">
+                    Complete Build! 🛠️
+                </button>
+            </div>
+
+            <!-- Post-Submission Success Section -->
+            <div id="successSection" class="success-section" style="display: none;">
+                <h2>🎉 Congratulations!</h2>
+                <p class="success-subtitle">Thank you <strong id="successUserName">Builder</strong>! Your custom vehicle
+                    build is complete. Your listed specifications are downloadable below.</p>
+
+                <div class="achievements">
+                    <button type="button" class="achievement-btn unlocked" id="success-ach1">
+                        <span class="ach-icon">🔎</span>
+                        Included with Boundary Waters Package
+                        <span class="download-icon">
+                            <span class="download-text">Download</span>
+                            ⬇️
+                        </span>
+                    </button>
+
+                    <button type="button" class="achievement-btn unlocked" id="success-ach2">
+                        <span class="ach-icon">🔎</span>
+                        Included with Chassis
+                        <span class="download-icon">
+                            <span class="download-text">Download</span>
+                            ⬇️
+                        </span>
+                    </button>
+
+                    <button type="button" class="achievement-btn unlocked" id="success-ach3">
+                        <span class="ach-icon">🔎</span>
+                        Current Build Summary
+                        <span class="download-icon">
+                            <span class="download-text">Download</span>
+                            ⬇️
+                        </span>
+                    </button>
+                </div>
+
+                <div class="build-summary-final">
+                    <h3>Final Build Summary</h3>
+                    <div class="build-summary-table">
+                        <table id="finalBuildTable">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Option</th>
+                                    <th>Part #</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Filled by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="success-footer">
+                    <p>Thank you for building with Waldoch!</p>
+                    <p>A representative will be in touch soon to discuss your custom vehicle.</p>
+                    <button id="newBuildBtn" class="btn-primary">Start New Build</button>
+                </div>
+            </div>
+        </form>
+
+        <canvas class="celebration" id="confetti"></canvas>
+    </div>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader">
+            <div class="spinner"></div>
+            <p>Finalizing your epic journey...</p>
+        </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div id="infoModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Information</h3>
+                <button type="button" class="modal-close">&times;</button>
+            </div>
+            <div id="modalBody" class="modal-body scrollable">
+                <!-- Content injected dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="modalDownloadBtn" class="btn-secondary">Download</button>
+                <button type="button" class="btn-primary modal-close-btn">Continue Building</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>
