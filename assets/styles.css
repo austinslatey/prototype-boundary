@@ -33,7 +33,8 @@ body {
 
 /* Form Container - Wider on laptops/desktops */
 .form-container {
-    background: white;
+    background: #0a0a0a;
+    background: linear-gradient(180deg, rgba(10, 10, 10, 1) 0%, rgba(255, 255, 255, 1) 100%);
     padding: 40px;
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
@@ -44,7 +45,7 @@ body {
     overflow: hidden;
 
     /* background: #0a0015; */
-    color: #fff;
+    color: #000;
     min-height: 100vh;
     margin: 0;
     font-family: system-ui, sans-serif;
@@ -57,6 +58,11 @@ body {
     padding: 30px 40px 20px;
     gap: 30px;
     flex-wrap: wrap;
+}
+
+.main-flux {
+    color: #fff;
+    box-shadow: #000;
 }
 
 .header-title h1,
@@ -148,8 +154,15 @@ Styls for the Header text */
 
 .header-title .subtitle {
     margin: 8px 0 0;
-    color: #666;
+    color: #ccc;
     font-size: 1.1rem;
+}
+
+
+.subtitle {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 30px;
 }
 
 
@@ -168,19 +181,15 @@ Styls for the Header text */
     /* minimum space when wrapped */
 }
 
-.subtitle {
-    text-align: center;
-    color: #666;
-    margin-bottom: 30px;
+.header-row .subtitle {
+    color: #ccc;
 }
-
-
 
 .build-btn {
     /* Remove old solid background */
     /* background-color: #f5f5f5; */
     /* ← comment out or delete */
-    background-image: linear-gradient(175deg,#00ccff, #ff00aa);
+    background-image: linear-gradient(175deg, #00ccff, #ff00aa);
 
     color: white;
     /* White text for contrast */
